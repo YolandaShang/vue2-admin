@@ -1,23 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "../views/home/index.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
+export const routes = [
   {
     path: "/",
-    name: "home",
+    name: "Home",
+    meta: { label: "主页", icon: "Home" },
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/user/:name",
+    name: "User",
+    meta: { label: "用户", icon: "user" },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(/* webpackChunkName: "name" */ "../views/user/index.vue"),
   },
 ];
 
