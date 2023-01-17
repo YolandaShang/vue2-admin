@@ -16,7 +16,21 @@ export const routes = [
     name: "User",
     meta: { label: "用户", icon: "user" },
     component: () =>
-      import(/* webpackChunkName: "name" */ "../views/user/index.vue"),
+      import(/* webpackChunkName: "user" */ "../views/user/index.vue"),
+  },
+  {
+    path: "/data",
+    name: "Data",
+    meta: { label: "数据", icon: "data-display" },
+    component: () =>
+      import(/* webpackChunkName: "data" */ "../views/data/index.vue"),
+  },
+  {
+    path: "/order",
+    name: "Order",
+    meta: { label: "订单", icon: "order" },
+    component: () =>
+      import(/* webpackChunkName: "order" */ "../views/order/index.vue"),
   },
 ];
 

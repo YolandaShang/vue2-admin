@@ -10,12 +10,15 @@
 </template>
 
 <script>
-import { Home, User } from "@icon-park/vue";
+import { Home, User, DataDisplay, Order } from "@icon-park/vue";
+// 因为库里的暴露在这里都是大驼峰写法
 export default {
   name: "NavItem",
   components: {
     Home,
-    User, //当前组件内使用的组件必须先在这里注册
+    User,
+    DataDisplay, //当前组件内使用的组件必须先在这里注册
+    Order,
   },
   props: {
     label: {
@@ -44,7 +47,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .nav-item {
   display: flex;
   align-items: center;

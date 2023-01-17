@@ -40,6 +40,7 @@ export default {
 body {
   margin: 0px;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -59,6 +60,9 @@ body {
 }
 #app > .body {
   flex: 1;
+  background: #748574;
+  display: flex;
+  flex-direction: column;
 }
 // nav {
 //   padding: 30px;
