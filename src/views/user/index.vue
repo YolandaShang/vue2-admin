@@ -28,10 +28,13 @@
         <div v-if="!isEdited">{{ skills }}</div>
         <!-- <div v-else-if="1"></div> -->
         <template v-else>
-          <el-checkbox v-model="form.skill" label="1">搓大火球</el-checkbox
-          ><el-checkbox v-model="form.skill" label="2">闪电</el-checkbox
-          ><el-checkbox v-model="form.skill" label="3">冰锥</el-checkbox
-          ><el-checkbox v-model="form.skill" label="4">言出法随</el-checkbox>
+          <el-checkbox
+            v-for="item in skillOptions"
+            :key="item.value"
+            v-model="form.skill"
+            :label="item.value"
+            >{{ item.label }}</el-checkbox
+          >
         </template>
       </el-form-item>
       <el-form-item>
@@ -47,19 +50,15 @@
   </div>
 </template>
 <script>
+import { SkillList, RoleList } from "./config";
 export default {
   name: "user-view",
   computed: {
     skills() {
-      return this.form.skill
-        .map((item) => {
-          if (item === "1") {
-            return "搓大火球";
-          }
-          if (item === "2") {
-            return "闪电";
-          }
-          return "";
+      return (this.form.skill || [])
+        .map((id) => {
+          const target = this.skillOptions.find((item) => item.value === id);
+          return target.label;
         })
         .join("、");
     },
@@ -68,22 +67,9 @@ export default {
     return {
       userInfo: {},
       input: "",
-      form: {
-        name: "kylee",
-        gender: "2",
-        role: "2",
-        skill: ["1", "2"],
-      },
-      options: [
-        {
-          value: "1",
-          label: "管理员",
-        },
-        {
-          value: "2",
-          label: "访客",
-        },
-      ],
+      form: {},
+      options: RoleList,
+      skillOptions: SkillList,
       isEdited: false,
       genderTextMap: {
         1: "男",
@@ -105,6 +91,17 @@ export default {
     changeReturnState() {
       this.isEdited = false;
     },
+  },
+  beforeMount() {
+    this.axios
+      .get("http://localhost:3000/user")
+      .then((response) => {
+        console.log(response.data);
+        this.form = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
   mounted() {
     console.log(this.$route, 1, this.$router);
